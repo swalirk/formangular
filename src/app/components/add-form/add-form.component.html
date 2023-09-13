@@ -1,0 +1,193 @@
+<div class="container">
+    <h2>Add Form</h2>
+    <form #FormData="ngForm" (ngSubmit)="addForm()" >
+        
+        <div class="form-group">
+            <label for="tableId">Table:<label class="astric">*</label></label>
+            <select class="form-control" id="tableId" name="tableId" [(ngModel)]="newForm.tableId" #tableId="ngModel"
+                required [ngClass]="{'invalid-input': FormData.submitted && tableId.invalid}">
+                <option *ngFor="let table of tableNames" [value]="table.id">{{ table.name}}</option>
+            </select>
+            <div *ngIf="tableId.invalid && (tableId.dirty || tableId.touched)" class="alert alert-danger">
+          
+                Please select table
+               
+             </div>
+        </div>
+
+        
+        <div class="form-group">
+            <label for="name">Name:<label class="astric">*</label></label>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="newForm.name" #name="ngModel"
+                required  [ngClass]="{'invalid-input': FormData.submitted && name.invalid}" pattern="[A-Za-z\s]+">
+
+                <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                    
+                        
+                      
+                    Please Enter Valid Name
+                   
+                 </div>
+
+        </div>
+        <div class="form-group">
+            <label for="selectedDatatype" class="form-label">Type<label class="astric">*</label></label>
+              
+                  <select class="form-select" id="selectedtype" name="type" aria-label="Default select example"
+                        [(ngModel)]="newForm.type" #type="ngModel" required [ngClass]="{'invalid-input': FormData.submitted && type.invalid}">
+                      <option default value="Details">Details</option>
+                      <option value="Form">Form</option>
+                      <option value="Summary">Summary</option>
+                      <option value="Template">Template</option>
+                      <option value="SingleDetail">SingleDetail</option>
+                      <option value="MultiDetail">MultiDetail</option>
+                      <option value="Comment">Comment</option>
+                      
+                  </select>
+                  <div *ngIf="type.invalid && (type.dirty || type.touched)" class="alert alert-danger">
+                    Please select a type.
+                </div>
+             
+          </div>
+
+
+          <div class="form-group"  *ngIf="newForm.type === 'Form'" >
+            <label for="number">Form Number:</label>
+            <input type="text" class="form-control" id="number" name="number"
+                [(ngModel)]="newForm.number" #number="ngModel" >
+                
+        </div>
+          <div class="form-group">
+            <label for="sequenceNumber">Sequence Number:<label class="astric">*</label></label>
+            <input type="number" class="form-control" id="sequence" name="sequence"
+                [(ngModel)]="newForm.sequence" #sequence="ngModel" required [ngClass]="{'invalid-input': FormData.submitted && sequence.invalid}">
+                <div *ngIf="sequence.invalid && (sequence.dirty || sequence.touched)" class="alert alert-danger">
+                    Please enter a sequence number.
+                </div>
+        </div>
+
+        <div class="form-group">
+            <label for="subsequenceNumber">Sub Sequence Number:<label class="astric">*</label></label>
+            <input type="number" class="form-control" id="subSequence" name="subSequence"
+                [(ngModel)]="newForm.subSequence" #subSequence="ngModel" required [ngClass]="{'invalid-input': FormData.submitted && subSequence.invalid}">
+                <div *ngIf="subSequence.invalid && (subSequence.dirty || subSequence.touched)" class="alert alert-danger">
+                    Please enter a sub-sequence number.
+                </div>
+        </div>
+        <div class="form-group"  *ngIf="newForm.type === 'Form'" >
+            <label for="formType">Form Type<label class="astric">*</label></label>
+            <select class="form-select" id="formType" name="formType" [(ngModel)]="newForm.formType"#formType="ngModel" required [ngClass]="{'invalid-input': FormData.submitted && formType.invalid}">
+                <option value="Conditional">Conditional</option>
+                <option value="Mandatory">Mandatory</option>
+                <option value="Optional">Optional</option>
+            </select>
+            <div *ngIf="formType.invalid && (formType.dirty || formType.touched)" class="alert alert-danger">
+                Please select a valid form type.
+            </div>
+        </div>
+         <div class="form-group" *ngIf="newForm.type === 'Form'">
+            <label for="hidePremium">Hide Premium:</label>
+           
+                <div>
+                  <label>
+                    <input type="radio" name="hidePremium" [(ngModel)]="newForm.hidePremium" value="1" > Yes
+                  </label>
+                  <label>
+                    <input type="radio" name="hidePremium" [(ngModel)]="newForm.hidePremium" value="0"> No
+                  </label>
+                </div>
+              
+        </div>
+        
+
+        <div class="form-group" *ngIf="newForm.type === 'Summary'">
+            <label for="condition">Condition:</label>
+            <input type="text" class="form-control" id="condition" name="condition"
+                [(ngModel)]="newForm.condition" #condition="ngModel" >
+           
+        </div>
+        <div class="form-group" *ngIf="newForm.type === 'Form'">
+            <label for="hidden">Hide Form:</label>
+           
+                <div>
+                  <label>
+                    <input type="radio" name="hidden" [(ngModel)]="newForm.hidden" value="1" > Yes
+                  </label>
+                  <label>
+                    <input type="radio" name="hidden" [(ngModel)]="newForm.hidden" value="0"> No
+                  </label>
+                </div>
+
+              
+        </div>
+       
+        <div class="form-group"  *ngIf="newForm.type === 'Template'" >
+            <label for="templateFile">Template url</label>
+            <input type="text" class="form-control" id="templateFile" name="templateFile"
+                [(ngModel)]="newForm.templateFile" #templateFile="ngModel" >
+                
+        </div>
+        
+       
+        <div class="form-group" *ngIf="newForm.type === 'Summary'|| newForm.type === 'Template'|| newForm.type === 'SingleDetail'||newForm.type === 'MultiDetail'">
+            <label for="tabResourceName">Tab Resource Name:</label>
+            <input type="text" class="form-control" id="tabResourceName" name="tabResourceName"
+                [(ngModel)]="newForm.tabResourceName" #tabResourceName="ngModel" >
+           
+        </div>
+        <div class="form-group" *ngIf="newForm.type === 'Summary'|| newForm.type === 'Template'|| newForm.type === 'SingleDetail'||newForm.type === 'MultiDetail'">
+            <label for="tabCondition">Tab Resource Condition:</label>
+            <input type="text" class="form-control" id="tabCondition" name="tabCondition"
+                [(ngModel)]="newForm.tabCondition" #tabCondition="ngModel" >
+           
+        </div>
+
+        <div class="form-group" *ngIf="newForm.type !='Details'">
+            <label for="minOccurs">Minimum Occurs:</label>
+            <input type="number" class="form-control" id="minOccurs" name="minOccurs"
+                [(ngModel)]="newForm.minOccurs" #minOccurs="ngModel" >
+           
+        </div>
+
+        <div class="form-group" *ngIf="newForm.type !== 'Details' && newForm.minOccurs > 0">
+            <label for="maxOccurs">Maximum Occurs:</label>
+            <input type="number" class="form-control" id="maxOccurs" name="maxOccurs"
+                [(ngModel)]="newForm.maxOccurs" #maxOccurs="ngModel" [min]="newForm.minOccurs"  required [ngClass]="{'invalid-input': FormData.submitted && maxOccurs.invalid}">
+                <div *ngIf="newForm.maxOccurs < newForm.minOccurs" class="error-message">
+                    Maximum Occurs must be greater than or equal to Minimum Occurs.
+                </div>
+        </div>
+
+        <div class="form-group">
+            <label for="comment">Comment:</label>
+            <textarea class="form-control" id="comment" name="comment" [(ngModel)]="newForm.comment"></textarea>
+            
+        </div>
+        
+        <div class="form-group">
+            <label for="helpText">Help Text:</label>
+            <textarea class="form-control" id="helpText" name="helpText" [(ngModel)]="newForm.helpText"></textarea>
+            
+        </div>
+        
+        <div class="form-group">
+            <label for="scriptBefore">Script Before:</label>
+            <textarea class="form-control" id="scriptBefore" name="scriptBefore" [(ngModel)]="newForm.scriptBefore"></textarea>
+           
+        </div>
+        
+        <div class="form-group">
+            <label for="scriptAfter">Script After:</label>
+            <textarea class="form-control" id="scriptAfter" name="scriptAfter" [(ngModel)]="newForm.scriptAfter"></textarea>
+            
+        </div>
+
+
+        <button type="submit" class="btn btn-primary button-submit" >Submit</button>
+    </form>
+    <div class="col col-lg-12 text-center ">
+        <button class="btn btn-outline-secondary my-2" routerLink="/">Back -></button>
+    </div>
+
+    
+</div>

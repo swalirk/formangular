@@ -1,0 +1,82 @@
+<div class="container">
+    <h1 class="mb-3">FORMS</h1>
+   
+
+  <div style="display: flex; align-items: center;">
+    <label for="searchText">Page Name</label>
+    <input type="text" id="searchText" [(ngModel)]="searchText" >
+    <label for="searchByNumber" style="margin-left: 10px;">Search by Number</label>
+    <input type="checkbox" id="searchByNumber" [(ngModel)]="searchByNumber" (change)="filterForms()">
+  </div>
+   
+      <div style="display: flex; align-items: center;">
+        <label for="pagetype">Page Types:</label>
+          
+          <input type="checkbox" id="typeCheckbox1" [(ngModel)]="typeCheckbox1">
+          <label for="typeCheckbox1">Form</label>
+       
+          
+          <input type="checkbox" id="typeCheckbox2" [(ngModel)]="typeCheckbox2">
+          <label for="typeCheckbox2">Details</label>
+        
+         
+          <input type="checkbox" id="typeCheckbox3" [(ngModel)]="typeCheckbox3">
+          <label for="typeCheckbox3">Summary</label>
+
+          <div>
+        
+            <!-- <label for="selectAll">Select All</label>
+            <input type="checkbox" id="selectAll" [(ngModel)]="selectAll" (change)="toggleAllCheckboxes(selectAll)"> -->
+    
+            <button type="button" class="btn btn-secondary btn-sm" (click)="toggleAllCheckboxes()">SelectAll</button>
+
+            <button type="button" class="btn btn-secondary btn-sm"  (click)="clearAllCheckboxes()">ClearAll</button>
+          </div>
+      </div>
+     
+      <button type="button" class="btn btn-success" (click)="filterForms()">Search</button>
+   
+      
+       
+      
+    <table class="table" *ngIf='forms && forms.length >0'>
+       
+        <thead>
+            <tr>
+                <th>Id</th>   
+                <th>Name</th>
+            <th>Type</th>
+            <th>Number</th>
+            <th>Sequence</th>
+            <th>Sub Sequence</th>
+            <th>Action</th>
+            <th>Action</th>
+            <th>Action</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of filteredForms| paginate:{itemsPerPage:50,currentPage:page,totalItems:totalLength}">
+                <td>{{c.id}}</td>
+                <td>{{c.name}}</td>
+                <td>{{c.type}}</td>
+                <td>{{c.number}}</td>
+                <td>{{c.sequence}}</td>
+                <td>{{c.subSequence}}</td>
+            <td><a class="nav-link" [routerLink]="['/pagetask']">Click to aceess task</a></td>
+            <td><a class="nav-link" [routerLink]="['/formlist','view',c.id]"><i class="bi bi-view-list"></i>View</a></td>
+              <td><a class="nav-link" [routerLink]="['/formlist','edit',c.id]"><i class="bi bi-pencil-fill"></i>Edit</a></td>
+              <td><a  (click)="deleteForm(c.id)"><i class="bi bi-trash3"></i>Delete</a></td>
+            
+        </tr>
+        </tbody>
+    </table>
+   
+    
+    <div class="pagination" style="align-items: center; text-align: center;justify-content: center;">
+        <pagination-controls (pageChange)="page=$event"></pagination-controls>
+    </div>
+    
+
+    
+</div>
