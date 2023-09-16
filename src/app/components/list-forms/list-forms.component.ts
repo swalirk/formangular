@@ -74,7 +74,7 @@ searchByNumber: boolean = false;
   }
 
   deleteForm(id: any) {
-    const confirmDelete = confirm('Are you sure you want to delete this column?');
+    const confirmDelete = confirm('Are you sure you want to delete this form?');
   
     if (confirmDelete) {
       this.formservice.deleteForm(id).subscribe((response: any) => {

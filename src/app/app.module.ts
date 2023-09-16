@@ -11,6 +11,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageTaskComponent } from './components/page-task/page-task.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+
 
 
 
@@ -23,6 +26,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     AddFormComponent,
     ViewFormComponent,
     PageTaskComponent,
+    FooterComponent,
+    HeaderComponent
+   
    
     
     

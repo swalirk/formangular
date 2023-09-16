@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Action } from 'rxjs/internal/scheduler/Action';
+import { form } from 'src/app/models/form';
 import { FormServiceService } from 'src/app/service/form-service.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { FormServiceService } from 'src/app/service/form-service.service';
 })
 export class ViewFormComponent implements OnInit {
 
-  newForm : any={
+  newForm : form={
     addChangeDeleteFlag: null,
     btnCndAdd: null,
     btnCndCopy: null,
@@ -41,7 +42,7 @@ export class ViewFormComponent implements OnInit {
     scriptAfter:null,
     hidden: null,
     hidePremium: null,
-    id: null,
+    id:'00000000-0000-0000-0000-000000000000',
     maxOccurs: null,
     minOccurs: null,
     name: null,
@@ -58,13 +59,24 @@ export class ViewFormComponent implements OnInit {
 
   constructor(private formservice:FormServiceService,private router:Router,private route:ActivatedRoute){}
   id:any
+  tableData:any={
+    name:null
+  };
   ngOnInit(): void {
+
     this.id=this.route.snapshot.paramMap.get('id')
     this.formservice.getForm(this.id).subscribe((res:any)=>
     {
       this.newForm=res
       console.log(res)
+      this.formservice.getTable(this.newForm.tableId).subscribe((response:any)=>
+    {
+      console.log(response)
+      this.tableData=response
+      
     })
+    })
+    
   }
 
 }

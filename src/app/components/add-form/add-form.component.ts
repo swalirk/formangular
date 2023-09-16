@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { form } from 'src/app/models/form';
 import { FormServiceService } from 'src/app/service/form-service.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class AddFormComponent implements OnInit {
 
   @ViewChild('FormData') formData: NgForm;
   constructor(private formservice:FormServiceService,private router:Router){}
-  newForm : any={
+  newForm : form={
     addChangeDeleteFlag: null,
     btnCndAdd: null,
     btnCndCopy: null,
@@ -55,6 +56,7 @@ export class AddFormComponent implements OnInit {
     tableId: null!,
     templateFile: null,
     type: null!,
+    id:'00000000-0000-0000-0000-000000000000'
   };
 
   ngOnInit(): void {
@@ -77,6 +79,8 @@ export class AddFormComponent implements OnInit {
     if(this.formData.valid)
     {
 
+    if(this.newForm){
+
     
     
     this.formservice.addForm(this.newForm).subscribe((res:any)=>
@@ -94,9 +98,13 @@ export class AddFormComponent implements OnInit {
         this.router.navigate(['/formlist'])
       }
       
-      
+    
      
     })}
+    else{
+      alert("Data is null")
+    }
+  }
     else{
       alert("please Enter Required Fields")
     }

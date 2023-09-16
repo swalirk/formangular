@@ -1,31 +1,39 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { form } from '../models/form';
+import { environment } from '../environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormServiceService {
-  baseurl = "https://localhost:7235/api/Form"
-  constructor(private http: HttpClient) { }
 
-  getForms(): Observable<any> {
-    return this.http.get<any>(this.baseurl)
-  }
-  deleteForm(id: any): Observable<any> {
-    return this.http.delete("https://localhost:7235/api/Form?id=" + id)
-  }
-  addForm (data:any):Observable<any>{
-    return this.http.post<any>("https://localhost:7235/api/Form",data)
-  }
-  getForm(id:any){
-    return this.http.get<any>(`https://localhost:7235/api/Form/${id}`)
+  private apiUrl:any = environment.apiUrls
+  constructor(private http: HttpClient) { }
+  getTable(id:any){
+    return this.http.get<any>(this.apiUrl.getTable+id)
   
   }
-  editForm = (id:any,data:any)=>{
-    return this.http.put("https://localhost:7235/api/Form/"+id,data)
+
+
+  getForms(): Observable<form> {
+    return this.http.get<form>(this.apiUrl.getForms)
+  }
+  deleteForm(id: string): Observable<any> {
+    return this.http.delete(this.apiUrl.deleteForm + id)
+  }
+  addForm (data:form):Observable<form>{
+    return this.http.post<form>(this.apiUrl.addForm,data)
+  }
+  getForm(id:string){
+    return this.http.get<form>(this.apiUrl.getForm+id)
+  
+  }
+  editForm = (id:string,data:form)=>{
+    return this.http.put(this.apiUrl.editForm+id,data)
   }
   getTableNames =()=>{
-    return this.http.get("https://localhost:7235/api/Table/getAllTableNames");
+    return this.http.get(this.apiUrl.getTablenames);
   }
 }

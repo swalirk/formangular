@@ -2,14 +2,14 @@
     <h1 class="mb-3">FORMS</h1>
    
 
-  <div style="display: flex; align-items: center;">
+  <div class="flex-center">
     <label for="searchText">Page Name</label>
     <input type="text" id="searchText" [(ngModel)]="searchText" >
     <label for="searchByNumber" style="margin-left: 10px;">Search by Number</label>
     <input type="checkbox" id="searchByNumber" [(ngModel)]="searchByNumber" (change)="filterForms()">
   </div>
    
-      <div style="display: flex; align-items: center;">
+      <div class="flex-center">
         <label for="pagetype">Page Types:</label>
           
           <input type="checkbox" id="typeCheckbox1" [(ngModel)]="typeCheckbox1">
@@ -25,8 +25,7 @@
 
           <div>
         
-            <!-- <label for="selectAll">Select All</label>
-            <input type="checkbox" id="selectAll" [(ngModel)]="selectAll" (change)="toggleAllCheckboxes(selectAll)"> -->
+           
     
             <button type="button" class="btn btn-secondary btn-sm" (click)="toggleAllCheckboxes()">SelectAll</button>
 
@@ -43,7 +42,7 @@
        
         <thead>
             <tr>
-                <th>Id</th>   
+                  
                 <th>Name</th>
             <th>Type</th>
             <th>Number</th>
@@ -56,8 +55,8 @@
         </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let c of filteredForms| paginate:{itemsPerPage:50,currentPage:page,totalItems:totalLength}">
-                <td>{{c.id}}</td>
+            <tr *ngFor="let c of filteredForms| paginate:{itemsPerPage:50,currentPage:page,totalItems:totalLength,id:'formPagination'}">
+              
                 <td>{{c.name}}</td>
                 <td>{{c.type}}</td>
                 <td>{{c.number}}</td>
@@ -73,8 +72,8 @@
     </table>
    
     
-    <div class="pagination" style="align-items: center; text-align: center;justify-content: center;">
-        <pagination-controls (pageChange)="page=$event"></pagination-controls>
+    <div class="pagination center-content">
+        <pagination-controls  (pageChange)="page=$event" id="formPagination" name="formPagination"></pagination-controls>
     </div>
     
 

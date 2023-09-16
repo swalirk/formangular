@@ -77,9 +77,9 @@ export class EditFormComponent implements OnInit{
       }
     )
   }
-  isSubmitted:Boolean= false
+
   updateForm(){
-    this.isSubmitted=true
+    
     if(this.formData.valid){
 
     
@@ -109,6 +109,7 @@ export class EditFormComponent implements OnInit{
       this.newForm.tabResourceName=null;
     }
 
+    if(this.newForm){
 
     this.formservice.editForm(this.newForm.id,this.newForm).subscribe
    ((r:any)=>{
@@ -120,6 +121,10 @@ export class EditFormComponent implements OnInit{
       alert("Something Went Wrong")
     }
    })}
+   else{
+    alert("data is null")
+   }
+  }
    else{
     alert("Please Enter Required Fields")
    }
