@@ -60,22 +60,32 @@ export class EditFormComponent implements OnInit{
   ngOnInit(): void {
     this.getTableNames();
     this.id=this.route.snapshot.paramMap.get('id')
-    this.formservice.getForm(this.id).subscribe((res:any)=>
+    this.formservice.getForm(this.id).subscribe({
+      next:(res)=>
     {
       this.newForm=res
       
-    })
+    },
+    error: (e) => {
+      alert("Error In Getting Data")
+      this.router.navigate(['/formlist'])
+    }
+  })
   }
   constructor(private formservice:FormServiceService,private router:Router,private route:ActivatedRoute){}
 
   tableNames:any=[]
   getTableNames = ()=>{
-    this.formservice.getTableNames().subscribe(
-      (response:any)=>{
+    this.formservice.getTableNames().subscribe({
+      next:(response)=>{
         this.tableNames=response
        
+      },
+      error: (e) => {
+        alert("Error In Getting Data")
+        this.router.navigate(['/formlist'])
       }
-    )
+  })
   }
 
   updateForm(){
@@ -109,21 +119,21 @@ export class EditFormComponent implements OnInit{
       this.newForm.tabResourceName=null;
     }
 
-    if(this.newForm){
+ 
 
     this.formservice.editForm(this.newForm.id,this.newForm).subscribe
-   ((r:any)=>{
-    if(r){
+   ({
+    next:(r)=>{
+    
       alert("Updated Successfully")
     this.router.navigate(['/formlist','view',this.newForm.id])
+    },
+    error: (e) => {
+      alert("Error In Updating Form Page")
+      this.router.navigate(['/formlist'])
     }
-    else{
-      alert("Something Went Wrong")
-    }
-   })}
-   else{
-    alert("data is null")
-   }
+   })
+  
   }
    else{
     alert("Please Enter Required Fields")

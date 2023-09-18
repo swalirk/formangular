@@ -65,7 +65,8 @@ export class ViewFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.id=this.route.snapshot.paramMap.get('id')
-    this.formservice.getForm(this.id).subscribe((res:any)=>
+    this.formservice.getForm(this.id).subscribe({
+      next:(res:any)=>
     {
       this.newForm=res
       console.log(res)
@@ -75,6 +76,11 @@ export class ViewFormComponent implements OnInit {
       this.tableData=response
       
     })
+  },
+  error: (e) => {
+    alert("Error in Fetching Data")
+   
+  }
     })
     
   }

@@ -20,7 +20,7 @@ export class FormServiceService {
   getForms(): Observable<form> {
     return this.http.get<form>(this.apiUrl.getForms)
   }
-  deleteForm(id: string): Observable<any> {
+  deleteForm(id: string){
     return this.http.delete(this.apiUrl.deleteForm + id)
   }
   addForm (data:form):Observable<form>{

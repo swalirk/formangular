@@ -26,12 +26,18 @@ export class ListFormsComponent implements OnInit{
   }
 
   loadForms(){
-    this.formservice.getForms().subscribe((res=>{
+    this.formservice.getForms().subscribe({
+      next:(res)=>{
       this.forms=res
 
       this.filterForms();
       
-    }))
+    },
+    error: (e) => {
+      alert("Error in getting data")
+      
+    }
+  })
   }
      
   
@@ -77,11 +83,17 @@ searchByNumber: boolean = false;
     const confirmDelete = confirm('Are you sure you want to delete this form?');
   
     if (confirmDelete) {
-      this.formservice.deleteForm(id).subscribe((response: any) => {
+      this.formservice.deleteForm(id).subscribe({
+        next:(response) => {
         alert("Form deleted successfully")
       
         
         this.loadForms()
+        },
+        error: (e) => {
+          alert("Error In Deleting Form Page")
+         
+        }
         
       });
     }

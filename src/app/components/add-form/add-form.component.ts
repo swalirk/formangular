@@ -64,12 +64,15 @@ export class AddFormComponent implements OnInit {
   }
   tableNames:any=[]
   getTableNames = ()=>{
-    this.formservice.getTableNames().subscribe(
-      (response:any)=>{
+    this.formservice.getTableNames().subscribe({
+      next:(response)=>{
         this.tableNames=response
        
+      },
+      error: (e) => {
+        alert("Error in fetching Table Data")
       }
-    )
+  })
   }
   isSubmitted:Boolean= false
 
@@ -79,31 +82,24 @@ export class AddFormComponent implements OnInit {
     if(this.formData.valid)
     {
 
-    if(this.newForm){
+    
 
     
     
-    this.formservice.addForm(this.newForm).subscribe((res:any)=>
+    this.formservice.addForm(this.newForm).subscribe({
+      next:(res)=>
     {
-
-
-      if(res)
-      {
         alert("Page Added Successfully")
         this.router.navigate(['/formlist','view',res.id])
-      }
-      else
-      {
-        alert("Something WEent Wrong")
+      },
+      error: (e) => {
+        alert("Error in Adding New Form Page")
         this.router.navigate(['/formlist'])
       }
-      
-    
      
-    })}
-    else{
-      alert("Data is null")
-    }
+     
+    })
+    
   }
     else{
       alert("please Enter Required Fields")
@@ -112,3 +108,5 @@ export class AddFormComponent implements OnInit {
   }
 
 }
+
+
